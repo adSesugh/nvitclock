@@ -1,0 +1,8 @@
+export const STUDENT_LOGIN = '/login_v1'
+export const STAFF_LOGIN = '/login_v2'
+export const QR_CODE = '/qrcode'
+export const PROFILE = '/profile'
+export const VERIFY_CODE = '/verifyCode'
+export const GET_LEARNER = '/learner'
+export const STAFF_BOARD = '/staff-board'
+export const STUDENT_BOARD = '/learner-board'

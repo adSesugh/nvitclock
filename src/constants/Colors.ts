@@ -1,0 +1,8 @@
+export const backgroundColor = '#F6F9F7'
+export const primaryColor = '#044666'
+export const actualAttendance = '#33C179'
+export const expectedAttendance = '#044666'
+export const totalAttendance = '#E3E8E6'
+export const defaultStokeColor = '#E3E8E6'
+export const cancelButton = '#EDF0EE'
+export const errorColor = '#D70F0F'
