@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { StyleSheet, View, Dimensions, Text, TouchableOpacity } from 'react-native'
-import { CameraView, useCameraPermissions } from 'expo-camera/next'
+import { CameraView, useCameraPermissions } from 'expo-camera'
 import { Image } from 'expo-image'
 import tw from 'twrnc'
 import { useNavigation } from '@react-navigation/native'
@@ -13,20 +13,18 @@ import BarcodeMask, {} from 'react-native-barcode-mask'
 import { resetLearner, resetStatus } from '@/store/student'
 import NonePointerCustomBackdrop from './NonePointerCustomBackDrop'
 import { Audio } from 'expo-av'
-import Toast from 'react-native-simple-toast'
 import { useFonts, Inter_400Regular, Inter_500Medium, Inter_600SemiBold } from '@expo-google-fonts/inter'
 
 
 const { width, height } = Dimensions.get('screen')
 
-const QRCodeScanner = () => {
+const QRCodeScanner = ({ navigation }) => {
     let [fontsLoaded, fontError] = useFonts({
         Inter_400Regular,
         Inter_500Medium,
         Inter_600SemiBold
     });
-    
-    const navigation = useNavigation()
+
     const dispatch = useDispatch<useAppDispatch>()
     const [permission, requestPermission] = useCameraPermissions();
     const bottomSheetRef = useRef<BottomSheet>(null);
@@ -37,8 +35,8 @@ const QRCodeScanner = () => {
     const closeModal = useSelector((state: RootState) => state.modal.closeModal);
     
 
-    const snapPoints = useMemo(() => ['40%', '40%'], []);
-    const errorSnapPoints = useMemo(() => ['40%', '55%'], []);
+    const snapPoints = useMemo(() => ['44%', '44%'], []);
+    const errorSnapPoints = useMemo(() => ['44%', '55%'], []);
 
     useEffect(() => {
         (async () => {
@@ -119,7 +117,7 @@ const QRCodeScanner = () => {
                         onBarcodeScanned={((result) => handleBarcodeDetected(result))}
                     >
                         <TouchableOpacity 
-                            style={tw`flex right-4 justify-end items-end top-10`}
+                            style={tw`flex right-4 justify-end items-end top-12 bg-red-300 p-1 w-16 rounded-full`}
                             onPress={() => {
                                 dispatch(resetLearner())
                                 dispatch(resetStatus(undefined))
@@ -151,6 +149,7 @@ const QRCodeScanner = () => {
                     display: 'none'
                 }}
                 backdropComponent={NonePointerCustomBackdrop}
+                style={tw`rounded-t-[25px]`}
             >
                 <View style={tw`flex flex-col items-center relative`}>
                     {status !== undefined && (

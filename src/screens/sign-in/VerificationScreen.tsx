@@ -10,8 +10,7 @@ import { hideEmailCharacters, isValidEmail } from '@/utils/common'
 import CountdownTimer from '@/components/TimerCountdown'
 import { useDispatch } from 'react-redux'
 import { codeVerification, resetError, resetLoader, setErrors, staffSignIn } from '@/store/auth'
-import Toast from 'react-native-simple-toast'
-import { useFonts, Inter_400Regular, Inter_500Medium, Inter_600SemiBold } from '@expo-google-fonts/inter'
+import Toast from 'react-native-toast-message'
 import { StatusBar } from 'expo-status-bar'
 
 const VerificationScreen = ({ route }) => {
@@ -56,7 +55,11 @@ const VerificationScreen = ({ route }) => {
             const newCode = Number(formattedCode)
             dispatch(codeVerification({email: param.email, code: newCode})).unwrap().then((res) => {
                 if(res !== undefined && res?.error){
-                    Toast.show(res.error, Toast.TOP)
+                    Toast.show({
+                        type: 'error',
+                        text1: 'Error',
+                        text2: res.error
+                    })
                 }
             })
         }
@@ -97,25 +100,27 @@ const VerificationScreen = ({ route }) => {
                     <Text style={[tw`text-center text-[14px] font-normal mt-2 text-[#2F4551]`, {fontFamily: 'Inter_400Regular'}]}>Enter the 4-digit code sent to {hideEmailCharacters(param.email)}</Text>
                 </View>
                 
-                <View style={tw`mt-[35px]`}>
-                    <View style={tw`flex flex-row gap-2 mt-2 w-full`}>
-                        {verificationCode.map((digit, index) => (
-                            <TextInput
-                                key={index}
-                                editable={!loading}
-                                ref={refs.current[index]}
-                                style={tw`h-[54px] w-[54px] text-center ${isTyping ? 'border-2 border-[#044666]' : 'border border-[#96A7AF]'} bg-white rounded-[8px]`}
-                                placeholder="•"
-                                maxLength={1}
-                                keyboardType="numeric"
-                                value={digit}
-                                onFocus={handleFocus}
-                                onBlur={handleBlur}
-                                onChangeText={(value) => handleCodeChange(index, value)}
-                                onKeyPress={(event) => handleKeyPress(index, event)}
-                                placeholderTextColor={'#A0B6C1'}
-                            />
-                        ))}
+                <View style={tw`mt-[35px] w-11/12`}>
+                    <View style={tw`flex items-center`}>
+                        <View style={tw`flex flex-row gap-2 mt-2`}>
+                            {verificationCode.map((digit, index) => (
+                                <TextInput
+                                    key={index}
+                                    editable={!loading}
+                                    ref={refs.current[index]}
+                                    style={tw`h-[51px] w-[51px] text-center ${isTyping ? 'border-2 border-[#044666]' : 'border border-[#96A7AF]'} bg-white rounded-[16px]`}
+                                    placeholder="•"
+                                    maxLength={1}
+                                    keyboardType="numeric"
+                                    value={digit}
+                                    onFocus={handleFocus}
+                                    onBlur={handleBlur}
+                                    onChangeText={(value) => handleCodeChange(index, value)}
+                                    onKeyPress={(event) => handleKeyPress(index, event)}
+                                    placeholderTextColor={'#A0B6C1'}
+                                />
+                            ))}
+                        </View>
                     </View>
                     {errors && (
                         <View style={tw`flex items-center py-2 w-full`}>
@@ -138,10 +143,12 @@ const VerificationScreen = ({ route }) => {
                         )}
                     </View>
                 </View>
-                <TouchableOpacity disabled={loading} onPress={handleVerifyCode} style={tw`flex flex-row gap-x-3 h-[52px] bg-[${primaryColor}] justify-center items-center w-full mt-3 rounded-[28px]`}>
-                    {loading && <ActivityIndicator color={'#fff'} size={'small'} />}
-                    <Text style={[tw`text-white text-[16px]`, {fontFamily: 'Inter_500Medium'}]}>{loading ? 'Verifying...' : 'Verify Code'}</Text>
-                </TouchableOpacity>
+                <View style={tw`flex items-center justify-center w-5/6`}>
+                    <TouchableOpacity disabled={loading} onPress={handleVerifyCode} style={tw`flex flex-row gap-x-3 h-[52px] bg-[${primaryColor}] justify-center items-center mt-3 rounded-[28px] w-full`}>
+                        {loading && <ActivityIndicator color={'#fff'} size={'small'} />}
+                        <Text style={[tw`text-white text-[16px]`, {fontFamily: 'Inter_500Medium'}]}>{loading ? 'Verifying...' : 'Verify Code'}</Text>
+                    </TouchableOpacity>
+                </View>
             </KeyboardAvoidingView>
         </SafeAreaView>
     )

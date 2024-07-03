@@ -8,17 +8,11 @@ import StaffAuth from '@/components/StaffAuth'
 import { useDispatch } from 'react-redux'
 import { useAppDispatch } from '@/store'
 import { resetError, resetLoader } from '@/store/auth'
-// import { useFonts, Inter_400Regular,Inter_500Medium, Inter_600SemiBold } from '@expo-google-fonts/inter'
 import { StatusBar } from 'expo-status-bar'
 import { SCREEN_WIDTH } from '@/constants/Common'
 
 
 const LoginScreenV1 = ({ navigation }) => {
-    // let [fontsLoaded, fontError] = useFonts({
-    //     Inter_400Regular,
-    //     Inter_500Medium,
-    //     Inter_600SemiBold
-    // });
     const dispatch = useDispatch<useAppDispatch>()
     const [userType, setUserType] = useState<string | undefined>('student')
     const [isTyping, setIsTyping] = useState<boolean>(false);
@@ -63,7 +57,7 @@ const LoginScreenV1 = ({ navigation }) => {
                         )}
                     </View>
                     
-                    <View style={tw`w-full`}>
+                    <View style={tw`w-full w-5/6`}>
                         {userType === 'student' ? (
                             <StudentAuth setIsTyping={setIsTyping} isTyping={isTyping} />
                         ): (

@@ -29,7 +29,7 @@ const CustomBackdrop = ({ animatedIndex, style }: BottomSheetBackdropProps) => {
         [style, containerAnimatedStyle]
     );
 
-    return <Animated.View style={containerStyle} />;
+    return <Animated.View style={containerStyle} pointerEvents={'box-none'} />;
 };
 
 export default CustomBackdrop;

@@ -6,8 +6,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState, useAppDispatch } from '@/store'
 import { resetError, resetLoader, setErrors, staffSignIn } from '@/store/auth'
 import { isValidEmail } from '@/utils/common'
-import Toast from 'react-native-simple-toast'
+//import Toast from 'react-native-simple-toast'
 import { useFonts, Inter_400Regular, Inter_500Medium } from '@expo-google-fonts/inter'
+import Toast from 'react-native-toast-message'
 
 const StaffAuth = ({ navigation, setIsTyping, isTyping }) => {
     let [fontsLoaded, fontError] = useFonts({
@@ -23,17 +24,30 @@ const StaffAuth = ({ navigation, setIsTyping, isTyping }) => {
         dispatch(resetError())
         if(isValidEmail(email)) {
             dispatch(staffSignIn(email)).unwrap().then((res) => {
+                console.log(res)
                 if(res !== undefined && res?.success){
-                    Toast.show('Please check your email for verification code!', Toast.TOP)
+                    Toast.show({
+                        type: 'success',
+                        text1: 'Success',
+                        text2: 'Please check your email for verification code!'
+                    })
                     return navigation.replace('verifier', {email: email})
                 }
                 else if(res?.error) {
                     dispatch(setErrors(res.error))
-                    Toast.show(res.error, Toast.TOP)
+                    Toast.show({
+                        type: 'error',
+                        text1: 'Error',
+                        text2: res.error
+                    })
                     return
                 }
                 else {
-                    Toast.show('Network error!', Toast.TOP)
+                    Toast.show({
+                        type: 'error',
+                        text1: 'Error',
+                        text2: 'Network error'
+                    })
                     return
                 }
             }) 
@@ -71,7 +85,7 @@ const StaffAuth = ({ navigation, setIsTyping, isTyping }) => {
                     onBlur={handleBlur}
                     onFocus={handleFocus}
                     onKeyPress={() => dispatch(resetError())}
-                    style={tw`${isTyping || errors ? 'border-2 border-[#044666]' : 'border border-[#96A7AF]'} rounded-[8px] bg-white h-[51px] px-3 text-lg w-full`}
+                    style={tw`${isTyping || errors ? 'border-2 border-[#044666]' : 'border border-[#96A7AF]'} rounded-[16px] bg-white px-3 h-[51px] w-full`}
                 />
                 {errors && (
                     <View style={tw`flex pt-2 w-full`}>

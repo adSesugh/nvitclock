@@ -5,7 +5,7 @@ import { backgroundColor, primaryColor } from '@/constants/Colors'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState, useAppDispatch } from '@/store'
 import { resetError, setErrors, studentSignIn } from '@/store/auth'
-import Toast from 'react-native-simple-toast'
+//import Toast from 'react-native-simple-toast'
 import * as Device from 'expo-device'
 import { useFonts, Inter_400Regular, Inter_500Medium } from '@expo-google-fonts/inter'
 
@@ -28,7 +28,7 @@ const StudentAuth = ({ setIsTyping, isTyping }) => {
             }
             return dispatch(studentSignIn(formData)).unwrap().then((res) => {
                 if(res !== undefined && res?.error){
-                    Toast.show(res.error, Toast.TOP)
+                    //Toast.show(res.error, Toast.TOP)
                 }
             })
         } else {
@@ -65,7 +65,7 @@ const StudentAuth = ({ setIsTyping, isTyping }) => {
                     onBlur={handleBlur}
                     onFocus={handleFocus}
                     maxLength={11}
-                    style={tw`${isTyping || errors ? 'border-2 border-[#044666]' : 'border border-[#96A7AF]'} rounded-[8px] bg-white h-[51px] w-full px-2 text-lg`}
+                    style={tw`${isTyping || errors ? 'border-2 border-[#044666]' : 'border border-[#96A7AF]'} rounded-[16px] bg-white h-[51px] w-full px-3`}
                 />
             </View>
             {errors && (

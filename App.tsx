@@ -8,6 +8,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Inter_400Regular, Inter_500Medium, Inter_600SemiBold } from '@expo-google-fonts/inter';
 import { useFonts } from 'expo-font';
 import { ActivityIndicator, View } from 'react-native';
+import Toast from 'react-native-toast-message'
 import tw from 'twrnc'
 
 export default function App() {
@@ -31,6 +32,7 @@ export default function App() {
         <BottomSheetModalProvider>
           <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
+                <Toast />
                 <Navigation />
             </PersistGate>
           </Provider>

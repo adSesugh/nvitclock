@@ -43,21 +43,23 @@ const StaffHome = ({ navigation }) => {
                 <Text style={[tw`text-center text-[20px] text-[#021F2C]`, {fontFamily: 'Inter_500Medium'}]}>Dashboard</Text>
             </View>
             <View style={tw`items-center mt-[100px] h-[99px]`}>
-                <Text style={[tw`text-[64px] text-[#021F2C]`, {fontFamily: 'Inter_600SemiBold'}]}>{stats?.attendance_percentage ?? 0}%</Text>
+                <Text style={[tw`text-[64px] text-[#021F2C]`, {fontFamily: 'Inter_600SemiBold'}]}>{stats?.attendance_percentage || 0}%</Text>
                 <Text style={[tw`text-[12px] text-[#2F4551]`, {fontFamily: 'Inter_400Regular'}]}>Attendance captured today</Text>
             </View>
-            <View style={tw`flex flex-row justify-between items-center h-[48px] mt-10 px-4`}>
-                <View style={tw`items-center`}>
-                    <Text style={[tw`text-[24px] text-[#021F2C]`, {fontFamily: 'Inter_500Medium'}]}>{stats?.attendance ?? 0}</Text>
-                    <Text style={[tw`text-[12px] text-[#2F4551]`, {fontFamily: 'Inter_400Regular'}]}>Captured</Text>
-                </View>
-                <View style={tw`items-center`}>
-                    <Text style={[tw`text-[24px] text-[#021F2C]`, {fontFamily: 'Inter_500Medium'}]}>{(stats?.student_total ?? 0 - stats?.attendance ?? 0) ?? 0}</Text>
-                    <Text style={[tw`text-[12px] text-[#2F4551]`, {fontFamily: 'Inter_400Regular'}]}>Students left</Text>
-                </View>
-                <View style={tw`items-center`}>
-                    <Text style={[tw`text-[24px] text-[#021F2C]`, {fontFamily: 'Inter_500Medium'}]}>{stats?.student_total ?? 0}</Text>
-                    <Text style={[tw`text-[12px] text-[#2F4551]`, {fontFamily: 'Inter_400Regular'}]}>Total students</Text>
+            <View style={tw`flex items-center w-full`}>
+                <View style={tw`flex flex-row justify-between items-center h-[48px] mt-10 px-4 w-11/12`}>
+                    <View style={tw`items-center`}>
+                        <Text style={[tw`text-[24px] text-[#021F2C]`, {fontFamily: 'Inter_500Medium'}]}>{stats?.attendance || 0}</Text>
+                        <Text style={[tw`text-[12px] text-[#2F4551]`, {fontFamily: 'Inter_400Regular'}]}>Captured</Text>
+                    </View>
+                    <View style={tw`items-center`}>
+                        <Text style={[tw`text-[24px] text-[#021F2C]`, {fontFamily: 'Inter_500Medium'}]}>{(stats?.student_total || 0 - stats?.attendance || 0) || 0}</Text>
+                        <Text style={[tw`text-[12px] text-[#2F4551]`, {fontFamily: 'Inter_400Regular'}]}>Students left</Text>
+                    </View>
+                    <View style={tw`items-center`}>
+                        <Text style={[tw`text-[24px] text-[#021F2C]`, {fontFamily: 'Inter_500Medium'}]}>{stats?.student_total || 0}</Text>
+                        <Text style={[tw`text-[12px] text-[#2F4551]`, {fontFamily: 'Inter_400Regular'}]}>Total students</Text>
+                    </View>
                 </View>
             </View>
             <View style={tw`items-center mt-24`}>
